@@ -63,14 +63,10 @@ class AttachRefreshTokenOnSuccessListener
             $valid = false;
             while (false === $valid) {
                 $valid = true;
-                $errors = $this->validator->validate($refreshToken);
-                if ($errors->count() > 0) {
-                    foreach ($errors as $error) {
-                        if ('refreshToken' === $error->getPropertyPath()) {
-                            $valid = false;
-                            $refreshToken->setRefreshToken();
-                        }
-                    }
+                $existing = $this->refreshTokenManager->get($refreshToken->getRefreshToken());
+                if($existing !== null) {
+                    $refreshToken->setRefreshToken();
+                    $valid = false;
                 }
             }
 

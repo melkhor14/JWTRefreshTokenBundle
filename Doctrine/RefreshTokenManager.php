@@ -11,7 +11,7 @@
 
 namespace Gesdinet\JWTRefreshTokenBundle\Doctrine;
 
-use Doctrine\Common\Persistence\ObjectManager;
+use App\Core\ObjectManagerBundle\Services\CustomerManager;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenManager as BaseRefreshTokenManager;
 use Gesdinet\JWTRefreshTokenBundle\Model\RefreshTokenInterface;
 
@@ -26,14 +26,14 @@ class RefreshTokenManager extends BaseRefreshTokenManager
     /**
      * Constructor.
      *
-     * @param ObjectManager $om
+     * @param CustomerManager $cm
      * @param string        $class
      */
-    public function __construct(ObjectManager $om, $class)
+    public function __construct(CustomerManager $cm, $class)
     {
-        $this->objectManager = $om;
-        $this->repository = $om->getRepository($class);
-        $metadata = $om->getClassMetadata($class);
+        $this->objectManager = $cm->getManager();
+        $this->repository = $this->objectManager->getRepository($class);
+        $metadata = $this->objectManager->getClassMetadata($class);
         $this->class = $metadata->getName();
     }
 

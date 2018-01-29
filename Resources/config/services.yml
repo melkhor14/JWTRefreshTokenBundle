@@ -11,7 +11,7 @@ services:
     gesdinet.jwtrefreshtoken.refresh_token_manager:
         class: Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenManager
         public: true
-        arguments: [ "@gesdinet.jwtrefreshtoken.entity_manager", "%gesdinet.jwtrefreshtoken.refresh_token.class%" ]
+        arguments: [ "@cm", "%gesdinet.jwtrefreshtoken.refresh_token.class%" ]
 
     gesdinet.jwtrefreshtoken:
         class: Gesdinet\JWTRefreshTokenBundle\Service\RefreshToken
